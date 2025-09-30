@@ -56,6 +56,7 @@ object SettingsRoute
 fun SettingsScreen(
     openHomeScreen: () -> Unit,
     openSignInScreen: () -> Unit,
+    openUserProfileScreen: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -153,7 +154,8 @@ fun SettingsScreen(
                 googleSignInClient.signOut()
                 currentUser = null
                 errorMessage = null
-            }
+            },
+            openUserProfileScreen = openUserProfileScreen
         )
     }
 }
@@ -169,7 +171,8 @@ fun SettingsScreenContent(
     currentUser: com.google.firebase.auth.FirebaseUser?,
     isLoading: Boolean,
     errorMessage: String?,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+    openUserProfileScreen: () -> Unit
 ) {
     val scrollBehavior = TopAppBarDefaults.pinnedScrollBehavior(rememberTopAppBarState())
 
@@ -246,7 +249,18 @@ fun SettingsScreenContent(
                     }
                 )
             } else {
-                // Для авторизованных пользователей показываем кнопки выхода
+                // Для авторизованных пользователей показываем кнопки выхода и профиль
+
+                // Кнопка профиля пользователя
+                StandardButton(
+                    label = R.string.user_profile,
+                    onButtonClick = {
+                        openUserProfileScreen()
+                    }
+                )
+
+                Spacer(Modifier.size(16.dp))
+
                 StandardButton(
                     label = R.string.sign_out,
                     onButtonClick = {
@@ -327,7 +341,8 @@ fun SettingsScreenPreview() {
             currentUser = null,
             isLoading = false,
             errorMessage = null,
-            onSignOut = {}
+            onSignOut = {},
+            openUserProfileScreen = {}
         )
     }
 }
