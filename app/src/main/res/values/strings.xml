@@ -19,7 +19,7 @@
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="repeat_password">Repeat password</string>
-
+    <string name="default_web_client_id">626882854147-ouhq3efimct96bm6hkv51652lnd8664h.apps.googleusercontent.com</string>
     <!-- Home Screen -->
     <string name="create_todo_list">Create a todo list</string>
 
